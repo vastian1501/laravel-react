@@ -2,7 +2,7 @@ import Product from '../components/Product'
 //import { productos as data } from "../data/productos"
 import useQuiosco from '../hooks/useQuiosco'
 import useSWR from 'swr';
-import clienteAxios from '../../config/axios';
+import clienteAxios from '../config/axios';
 
 const Home = () => {
   const { categoriaActual, productos } = useQuiosco()

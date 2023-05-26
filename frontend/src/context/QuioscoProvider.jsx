@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import { categorias as categoriasDB } from "../data/categorias"
 import { toast } from 'react-toastify'
-import clienteAxios from "../../config/axios"
+import clienteAxios from "../config/axios"
 
 
 
