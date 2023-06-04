@@ -1,10 +1,18 @@
 import useQuiosco from "../hooks/useQuiosco"
 import ProductSummary from "./ProductSummary"
 import { formatearDinero } from "../helpers"
+import { useAuth } from "../hooks/useAuth"
 
 const Summary = () => {
-  const { pedido, total } = useQuiosco()
+  const { pedido, total, handleSubmitNuevaOrden } = useQuiosco()
+  const { logout } = useAuth({middleware:'logout', url:'/auth/login'});
   const comprobarPedido = () => pedido.length === 0;
+
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    handleSubmitNuevaOrden( logout )
+    //console.log('has dado click ')
+  }
 
   return (
     <aside className="w-72 h-screen overflow-y-scroll p-5">
@@ -21,13 +29,13 @@ const Summary = () => {
             No hay elementos en tu pedido aún
           </p>
         ) : (
-          pedido.map( producto => (
+          pedido.map(producto => (
             <ProductSummary
               key={producto.id}
               producto={producto}
             />
           ))
-          )}
+        )}
       </div>
 
       <p className="text-xl mt-10">
@@ -35,21 +43,22 @@ const Summary = () => {
         {formatearDinero(total)}
       </p>
 
-      <form 
-                className="w-full"
-            >
-                <div className="mt-5">
-                    <input
-                        type="submit"
-                        className={`${comprobarPedido() ? 
-                            'bg-indigo-100' : 
-                            'bg-indigo-600 hover:bg-indigo-800 cursor-pointer' } 
+      <form
+        className="w-full"
+        onSubmit={handleSubmit}
+      >
+        <div className="mt-5">
+          <input
+            type="submit"
+            className={`${comprobarPedido() ?
+              'bg-indigo-100' :
+              'bg-indigo-600 hover:bg-indigo-800 cursor-pointer'} 
                             px-5 py-2 rounded uppercase font-bold text-white text-center w-full `}
-                        value="Confirmar Pedido"
-                        disabled={comprobarPedido()}
-                    />
-                </div>
-            </form>
+            value="Confirmar Pedido"
+            disabled={comprobarPedido()}
+          />
+        </div>
+      </form>
     </aside>
   )
 }

@@ -61,8 +61,8 @@ export const useAuth = ({ middleware, url }) => {
 
     }
 
-    console.log(user)
-    console.log(error)
+    //console.log(user)
+    //console.log(error)
 
     useEffect(() => {
         if (middleware === 'guest' && url && user) {
